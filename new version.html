@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureOrg - Shaping Tomorrow's World</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4fc3f7;
+            --secondary-color: #03a9f4;
+            --background-color: #0f0f1e;
+            --text-color: #ffffff;
+            --accent-color: #ff4081;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 15, 30, 0.9);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-left: 10px; 
+            position: relative;
+            left: 10px; 
+        }
+
+        .hamburger-menu {
+           position: relative;
+           cursor: pointer;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+           width: 30px;
+           height: 20px;
+           left: -20px;
+        }
+
+        .hamburger-menu span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url('https://source.unsplash.com/random/1920x1080?futuristic');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 15, 30, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(79, 195, 247, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+
+        /* About Section Styles */
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.2);
+        }
+
+        /* Organizational Structure Styles */
+        .org-structure {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .org-member {
+            text-align: center;
+            width: 200px;
+        }
+
+        .org-member img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .org-member img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+        }
+
+        .org-member h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .org-member p {
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+
+        /* Programs Section Styles */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .program-card {
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.2);
+        }
+
+        .program-card img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .program-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Gallery Section Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* News Section Styles */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.2);
+        }
+
+        .news-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .news-card a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .news-card a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Testimonials Section Styles */
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slide {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-item {
+            flex: 0 0 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .testimonial-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .testimonial-nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            margin: 0 5px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .testimonial-nav-dot.active {
+            opacity: 1;
+        }
+
+        /* Events Section Styles */
+        .events-list {
+            list-style: none;
+        }
+
+        .event-item {
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .event-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Careers Section Styles */
+        .careers-list {
+            list-style: none;
+        }
+
+        .career-item {
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .career-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* FAQ Section Styles */
+        .faq-list {
+            list-style: none;
+        }
+
+        .faq-item {
+            background-color: rgba(79, 195, 247, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .faq-question {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            display: none;
+        }
+
+        /* Contact Section Styles */
+        .contact-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 40px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: rgba(15, 15, 30, 0.9);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* See More/Less Button Styles */
+        .see-more-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .see-more-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Click Animation */
+        .click-animation {
+            transition: transform 0.1s ease;
+        }
+
+        .click-animation:active {
+            transform: scale(0.95);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(15, 15, 30, 0.9);
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .about-text,
+            .contact-form {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">FutureOrg</a>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">Tentang Kami</a>
+                <a href="#programs">Program</a>
+                <a href="#gallery">Galeri</a>
+                <a href="#news">Berita</a>
+                <a href="#testimonials">Testimoni</a>
+                <a href="#events">Acara</a>
+                <a href="#careers">Karir</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Selamat Datang di FutureOrg</h1>
+            <p>Membentuk Masa Depan Melalui Inovasi dan Keberlanjutan</p>
+            <a href="#contact" class="cta-button click-animation">Bergabung Sekarang</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">Tentang Kami</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Profil</h3>
+                    <p>FutureOrg adalah organisasi yang berdedikasi untuk membentuk masa depan melalui inovasi, teknologi, dan praktik berkelanjutan.</p>
+                    <h3>Sejarah</h3>
+                    <p>Didirikan pada tahun 2010, FutureOrg telah berkembang menjadi pemimpin dalam solusi teknologi berkelanjutan.</p>
+                    <h3>Visi & Misi</h3>
+                    <p>Visi kami adalah menciptakan dunia di mana kemajuan dan tanggung jawab lingkungan berjalan beriringan. Misi kami adalah mengembangkan solusi inovatif untuk tantangan global.</p>
+                    <h3>Nilai-nilai</h3>
+                    <p>Inovasi, Keberlanjutan, Kolaborasi, Integritas</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://source.unsplash.com/random/600x400?team" alt="Tim FutureOrg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="structure">
+        <div class="container">
+            <h2 class="section-title">Struktur Organisasi</h2>
+            <div class="org-structure">
+                <div class="org-member">
+                    <img src="https://source.unsplash.com/random/200x200?ceo" alt="John Doe">
+                    <h3>John Doe</h3>
+                    <p>CEO</p>
+                </div>
+                <div class="org-member">
+                    <img src="https://source.unsplash.com/random/200x200?cto" alt="Jane Smith">
+                    <h3>Jane Smith</h3>
+                    <p>CTO</p>
+                </div>
+                <div class="org-member">
+                    <img src="https://source.unsplash.com/random/200x200?cfo" alt="Mike Johnson">
+                    <h3>Mike Johnson</h3>
+                    <p>CFO</p>
+                </div>
+                <div class="org-member">
+                    <img src="https://source.unsplash.com/random/200x200?coo" alt="Sarah Lee">
+                    <h3>Sarah Lee</h3>
+                    <p>COO</p>
+                </div>
+            </div>
+            <button class="see-more-btn click-animation" data-target="structure">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="programs">
+        <div class="container">
+            <h2 class="section-title">Program Kami</h2>
+            <div class="programs-grid">
+                <div class="program-card click-animation">
+                    <img src="https://source.unsplash.com/random/300x200?ai" alt="AI Research">
+                    <h3>Riset AI</h3>
+                    <p>Memajukan kecerdasan buatan untuk menyelesaikan masalah global yang kompleks.</p>
+                </div>
+                <div class="program-card click-animation">
+                    <img src="https://source.unsplash.com/random/300x200?sustainability" alt="Sustainable Energy">
+                    <h3>Energi Berkelanjutan</h3>
+                    <p>Mengembangkan solusi energi bersih untuk masa depan yang lebih hijau.</p>
+                </div>
+                <div class="program-card click-animation">
+                    <img src="https://source.unsplash.com/random/300x200?education" alt="Future Education">
+                    <h3>Pendidikan Masa Depan</h3>
+                    <p>Merevolusi pembelajaran dengan teknologi pendidikan mutakhir.</p>
+                </div>
+            </div>
+            <button class="see-more-btn click-animation" data-target="programs">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <h2 class="section-title">Galeri</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item click-animation">
+                    <img src="https://source.unsplash.com/random/400x300?event" alt="Event 1">
+                </div>
+                <div class="gallery-item click-animation">
+                    <img src="https://source.unsplash.com/random/400x300?technology" alt="Technology 1">
+                </div>
+                <div class="gallery-item click-animation">
+                    <img src="https://source.unsplash.com/random/400x300?innovation" alt="Innovation 1">
+                </div>
+                <div class="gallery-item click-animation">
+                    <img src="https://source.unsplash.com/random/400x300?sustainability" alt="Sustainability 1">
+                </div>
+            </div>
+            <button class="see-more-btn click-animation" data-target="gallery">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="container">
+            <h2 class="section-title">Berita Terbaru</h2>
+            <div class="news-grid">
+                <div class="news-card click-animation">
+                    <h3><a href="#">Peluncuran Program AI Terbaru</a></h3>
+                    <p>FutureOrg meluncurkan program AI baru yang bertujuan untuk mengatasi tantangan perubahan iklim.</p>
+                    <a href="#" class="share-btn"><i class="fas fa-share-alt"></i> Bagikan</a>
+                </div>
+                <div class="news-card click-animation">
+                    <h3><a href="#">Kemitraan Energi Berkelanjutan</a></h3>
+                    <p>Kami menjalin kemitraan dengan perusahaan energi terkemuka untuk mengembangkan solusi energi terbarukan.</p>
+                    <a href="#" class="share-btn"><i class="fas fa-share-alt"></i> Bagikan</a>
+                </div>
+                <div class="news-card click-animation">
+                    <h3><a href="#">Penghargaan Inovasi Teknologi</a></h3>
+                    <p>FutureOrg menerima penghargaan bergengsi atas kontribusinya dalam inovasi teknologi berkelanjutan.</p>
+                    <a href="#" class="share-btn"><i class="fas fa-share-alt"></i> Bagikan</a>
+                </div>
+            </div>
+            <button class="see-more-btn click-animation" data-target="news">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Testimoni</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide">
+                    <div class="testimonial-item">
+                        <img src="https://source.unsplash.com/random/100x100?person1" alt="John Doe">
+                        <p>"Program FutureOrg telah membuka mata saya terhadap potensi teknologi dalam mengatasi masalah lingkungan."</p>
+                        <h4>John Doe</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <img src="https://source.unsplash.com/random/100x100?person2" alt="Jane Smith">
+                        <p>"Saya sangat terkesan dengan dedikasi tim FutureOrg dalam mengembangkan solusi inovatif untuk masa depan yang lebih baik."</p>
+                        <h4>Jane Smith</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <img src="https://source.unsplash.com/random/100x100?person3" alt="Mike Johnson">
+                        <p>"FutureOrg telah membantu perusahaan kami mengadopsi praktik berkelanjutan yang berdampak positif pada lingkungan dan bisnis kami."</p>
+                        <h4>Mike Johnson</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav"></div>
+        </div>
+    </section>
+
+    <section id="events">
+        <div class="container">
+            <h2 class="section-title">Acara Mendatang</h2>
+            <ul class="events-list">
+                <li class="event-item click-animation">
+                    <h3>Konferensi Teknologi Hijau</h3>
+                    <p>Tanggal: 15 Juli 2024</p>
+                    <p>Lokasi: Jakarta Convention Center</p>
+                </li>
+                <li class="event-item click-animation">
+                    <h3>Workshop AI untuk Keberlanjutan</h3>
+                    <p>Tanggal: 5 Agustus 2024</p>
+                    <p>Lokasi: Online (Zoom)</p>
+                </li>
+            </ul>
+            <button class="see-more-btn click-animation" data-target="events">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="careers">
+        <div class="container">
+            <h2 class="section-title">Karir</h2>
+            <ul class="careers-list">
+                <li class="career-item click-animation">
+                    <h3>Peneliti AI</h3>
+                    <p>Kami mencari peneliti AI yang bersemangat untuk mengembangkan solusi cerdas untuk masalah lingkungan.</p>
+                </li>
+                <li class="career-item click-animation">
+                    <h3>Insinyur Energi Terbarukan</h3>
+                    <p>Bergabunglah dengan tim kami untuk merancang dan mengimplementasikan solusi energi terbarukan inovatif.</p>
+                </li>
+            </ul>
+            <button class="see-more-btn click-animation" data-target="careers">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">FAQ</h2>
+            <ul class="faq-list">
+                <li class="faq-item click-animation">
+                    <h3 class="faq-question">Bagaimana cara bergabung dengan program FutureOrg?</h3>
+                    <p class="faq-answer">Untuk bergabung dengan program kami, silakan kunjungi halaman Program dan pilih program yang Anda minati. Dari sana, Anda akan menemukan informasi pendaftaran yang spesifik untuk setiap program.</p>
+                </li>
+                <li class="faq-item click-animation">
+                    <h3 class="faq-question">Apakah ada biaya untuk mengikuti program FutureOrg?</h3>
+                    <p class="faq-answer">Biaya program bervariasi tergantung pada jenis dan durasi program. Beberapa program mungkin gratis, sementara yang lain mungkin memerlukan biaya. Informasi lengkap tentang biaya dapat ditemukan di halaman masing-masing program.</p>
+                </li>
+            </ul>
+            <button class="see-more-btn click-animation" data-target="faq">Lihat Selengkapnya</button>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Kontak</h2>
+            <div class="contact-content">
+                
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Jl. Contoh No. 123, Jakarta, Indonesia</p>
+                    <p><i class="fas fa-phone"></i> +62 123 4567 890</p>
+                    <p><i class="fas fa-envelope"></i> info@futureorg.com</p>
+                    <div class="social-icons">
+                        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 FutureOrg. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(15, 15, 30, 0.9)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(15, 15, 30, 0.7)';
+            }
+        });
+
+        // Animate elements on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.program-card, .gallery-item, .news-card, .testimonial-slide, .event-item, .career-item, .faq-item');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // FAQ toggle
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        // Testimonial slider
+        const testimonialSlide = document.querySelector('.testimonial-slide');
+        const testimonialItems = document.querySelectorAll('.testimonial-item');
+        const testimonialNav = document.querySelector('.testimonial-nav');
+        let currentSlide = 0;
+
+        testimonialItems.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('testimonial-nav-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateTestimonialSlider();
+            });
+            testimonialNav.appendChild(dot);
+        });
+
+        function updateTestimonialSlider() {
+            testimonialSlide.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.testimonial-nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % testimonialItems.length;
+            updateTestimonialSlider();
+        }, 5000);
+
+        // See More/Less functionality
+        const seeMoreButtons = document.querySelectorAll('.see-more-btn');
+        seeMoreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
+                const section = document.getElementById(target);
+                const items = section.querySelectorAll('.org-member, .program-card, .gallery-item, .news-card, .event-item, .career-item, .faq-item');
+                
+                items.forEach((item, index) => {
+                    if (index >= 4) {
+                        item.style.display = item.style.display === 'none' ? 'block' : 'none';
+                    }
+                });
+
+                button.textContent = button.textContent === 'Lihat Selengkapnya' ? 'Lihat Lebih Sedikit' : 'Lihat Selengkapnya';
+            });
+        });
+
+        // Initialize See More/Less
+        seeMoreButtons.forEach(button => {
+            const target = button.getAttribute('data-target');
+            const section = document.getElementById(target);
+            const items = section.querySelectorAll('.org-member, .program-card, .gallery-item, .news-card, .event-item, .career-item, .faq-item');
+            
+            items.forEach((item, index) => {
+                if (index >= 4) {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Share functionality
+        const shareButtons = document.querySelectorAll('.share-btn');
+shareButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Ambil judul dari elemen <a> di dalam <h3> terdekat
+        const titleElement = button.previousElementSibling.querySelector('a');
+        const title = titleElement ? titleElement.innerText : 'Judul Tidak Ditemukan';
+        
+        const url = window.location.href;
+        const text = 'Breaking News📢!!!';
+
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                text: text,
+                url: url,
+            })
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing:', error));
+        } else {
+            alert('Share feature is not supported on this browser. You can copy the URL manually.');
+        }
+    });
+});
+    </script>
+</body>
+</html>
