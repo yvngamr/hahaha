@@ -959,7 +959,7 @@ shareButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         e.preventDefault();
         
-        // Ambil judul dari elemen <a> di dalam <h3> terdekat
+        // Ambil judul dari <a> di dalam <h3> terdekat
         const titleElement = button.previousElementSibling.querySelector('a');
         const title = titleElement ? titleElement.innerText : 'Judul Tidak Ditemukan';
         
