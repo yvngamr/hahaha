@@ -1050,6 +1050,25 @@
 
         // Panggil fungsi handleUrlParams saat halaman dimuat
         window.onload = handleUrlParams;
+
+        // Tambahkan fungsi untuk update URL sesuai posisi bagian
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+            history.pushState(null, null, `#${targetId}`);
+        }
+    });
+});
+
+// Panggil fungsi handleUrlParams saat halaman dimuat
+window.onload = handleUrlParams;
+
     </script>
 </body>
 </html>
