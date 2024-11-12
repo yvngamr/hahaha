@@ -998,8 +998,23 @@ function showModal(title, content) {
     modal.style.display = 'block';
 }
 
+//Fungsi untuk tidak menampilkan modal 
+  function closeModal() {
+    const modal = document.getElementById('contentModal');
+    modal.style.display = 'none';
+}
+      
+
 // Panggil fungsi handleUrlParams saat halaman dimuat
 window.onload = handleUrlParams;
+
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('contentModal');
+    // Menutup modal jika area di luar modal (selain konten modal) yang diklik
+    if (event.target === modal) {
+        closeModal();
+    }
+});        
 
         // Share functionality
         const shareButtons = document.querySelectorAll('.share-btn');
