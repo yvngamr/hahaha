@@ -956,52 +956,50 @@
         });
 
         // Data berita dan acara
-        const newsItems = [
-            { id: '1', title: 'Peluncuran Program AI Terbaru', content: 'FutureOrg meluncurkan program AI baru yang bertujuan untuk mengatasi tantangan perubahan iklim.' },
-            { id: '2', title: 'Kemitraan Energi Berkelanjutan', content: 'Kami menjalin kemitraan dengan perusahaan energi terkemuka untuk mengembangkan solusi energi terbarukan.' },
-            { id: '3', title: 'Penghargaan Inovasi Teknologi', content: 'FutureOrg menerima penghargaan bergengsi atas kontribusinya dalam inovasi teknologi berkelanjutan.' }
-        ];
+        // Data berita dan acara (gabungkan di satu tempat)
+const items = {
+    news: [
+        { id: 'peluncuran-program-ai-terbaru', title: 'Peluncuran Program AI Terbaru', content: 'FutureOrg meluncurkan program AI baru yang bertujuan untuk mengatasi tantangan perubahan iklim.' },
+        { id: 'kemitraan-energi-berkelanjutan', title: 'Kemitraan Energi Berkelanjutan', content: 'Kami menjalin kemitraan dengan perusahaan energi terkemuka untuk mengembangkan solusi energi terbarukan.' },
+        { id: 'penghargaan-inovasi-teknologi', title: 'Penghargaan Inovasi Teknologi', content: 'FutureOrg menerima penghargaan bergengsi atas kontribusinya dalam inovasi teknologi berkelanjutan.' }
+    ],
+    events: [
+        { id: 'konferensi-teknologi-hijau', title: 'Konferensi Teknologi Hijau', content: 'Tanggal: 15 Juli 2024<br>Lokasi: Jakarta Convention Center' },
+        { id: 'workshop-ai-untuk-keberlanjutan', title: 'Workshop AI untuk Keberlanjutan', content: 'Tanggal: 5 Agustus 2024<br>Lokasi: Online (Zoom)' }
+    ]
+};
 
-        const eventItems = [
-            { id: '1', title: 'Konferensi Teknologi Hijau', date: '15 Juli 2024', location: 'Jakarta Convention Center' },
-            { id: '2', title: 'Workshop AI untuk Keberlanjutan', date: '5 Agustus 2024', location: 'Online (Zoom)' }
-        ];
+// Fungsi untuk menangani parameter URL
+function handleUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type');
+    const id = urlParams.get('id');
 
-        // Fungsi untuk menangani parameter URL
-        function handleUrlParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const type = urlParams.get('type');
-            const id = urlParams.get('id');
+    if (type && id && items[type]) {
+        const content = items[type].find(item => item.id === id);
 
-            if (type && id) {
-                let content;
-                if (type === 'news') {
-                    content = newsItems.find(item => item.id === id);
-                } else if (type === 'events') {
-                    content = eventItems.find(item => item.id === id);
-                }
-
-                if (content) {
-                    showModal(content.title, content.content || `Tanggal: ${content.date}<br>Lokasi: ${content.location}`);
-                }
-            }
+        if (content) {
+            // Scroll ke bagian yang sesuai
+            document.getElementById(type).scrollIntoView({ behavior: "smooth" });
+            // Tampilkan konten dalam modal
+            showModal(content.title, content.content);
         }
+    }
+}
 
-        // Fungsi untuk menampilkan modal
-        function showModal(title, content) {
-            const modal = document.getElementById('contentModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalContent = document.getElementById('modalContent');
+// Fungsi untuk menampilkan modal
+function showModal(title, content) {
+    const modal = document.getElementById('contentModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
 
-            modalTitle.textContent = title;
-            modalContent.innerHTML = content;
-            modal.style.display = 'block';
-        }
+    modalTitle.textContent = title;
+    modalContent.innerHTML = content;
+    modal.style.display = 'block';
+}
 
-        // Fungsi untuk menutup modal
-        document.querySelector('.close').onclick = function() {
-            document.getElementById('contentModal').style.display = 'none';
-        }
+// Panggil fungsi handleUrlParams saat halaman dimuat
+window.onload = handleUrlParams;
 
         // Share functionality
         const shareButtons = document.querySelectorAll('.share-btn');
