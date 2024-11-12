@@ -922,17 +922,18 @@
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const title = button.getAttribute('data-title');
-                const url = `${button.getAttribute('data-url')}/new-version.html`;
+                const path = button.getAttribute('data-url');
+                const url = `${window.location.origin}/${path}`;
 
                 if (navigator.share) {
                     navigator.share({
                         title: title,
                         url: url,
                     })
-                    .then(() => console.log('Successful share'))
-                    .catch((error) => console.log('Error sharing:', error));
+                    .then(() => console.log('Berbagi berhasil'))
+                    .catch((error) => console.log('Error saat berbagi:', error));
                 } else {
-                    // Fallback for browsers that don't support Web Share API
+                    // Fallback untuk browser yang tidak mendukung Web Share API
                     const tempInput = document.createElement('input');
                     document.body.appendChild(tempInput);
                     tempInput.value = url;
