@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -556,6 +556,36 @@
                 margin-bottom: 40px;
             }
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--background-color);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid var(--primary-color);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: var(--primary-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -779,7 +809,7 @@
                     <h3>Informasi Kontak</h3>
                     <p><i class="fas fa-map-marker-alt"></i> Jl. Contoh No. 123, Jakarta, Indonesia</p>
                     <p><i class="fas fa-phone"></i> +62 123 4567 890</p>
-                    <p><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="741d1a121b341201000106111b06135a171b19">[email&#160;protected]</a></p>
+                    <p><i class="fas fa-envelope"></i> info@futureorg.com</p>
                     <div class="social-icons">
                         <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -798,7 +828,16 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <!-- Modal for displaying content -->
+    <div id="contentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+        </div>
+    </div>
+
+    <script>
         // Hamburger menu toggle
         const hamburgerMenu = document.querySelector('.hamburger-menu');
         const navLinks = document.querySelector('.nav-links');
@@ -916,14 +955,63 @@
             });
         });
 
+        // Data berita dan acara
+        const newsItems = [
+            { id: '1', title: 'Peluncuran Program AI Terbaru', content: 'FutureOrg meluncurkan program AI baru yang bertujuan untuk mengatasi tantangan perubahan iklim.' },
+            { id: '2', title: 'Kemitraan Energi Berkelanjutan', content: 'Kami menjalin kemitraan dengan perusahaan energi terkemuka untuk mengembangkan solusi energi terbarukan.' },
+            { id: '3', title: 'Penghargaan Inovasi Teknologi', content: 'FutureOrg menerima penghargaan bergengsi atas kontribusinya dalam inovasi teknologi berkelanjutan.' }
+        ];
+
+        const eventItems = [
+            { id: '1', title: 'Konferensi Teknologi Hijau', date: '15 Juli 2024', location: 'Jakarta Convention Center' },
+            { id: '2', title: 'Workshop AI untuk Keberlanjutan', date: '5 Agustus 2024', location: 'Online (Zoom)' }
+        ];
+
+        // Fungsi untuk menangani parameter URL
+        function handleUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            const id = urlParams.get('id');
+
+            if (type && id) {
+                let content;
+                if (type === 'news') {
+                    content = newsItems.find(item => item.id === id);
+                } else if (type === 'events') {
+                    content = eventItems.find(item => item.id === id);
+                }
+
+                if (content) {
+                    showModal(content.title, content.content || `Tanggal: ${content.date}<br>Lokasi: ${content.location}`);
+                }
+            }
+        }
+
+        // Fungsi untuk menampilkan modal
+        function showModal(title, content) {
+            const modal = document.getElementById('contentModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+
+            modalTitle.textContent = title;
+            modalContent.innerHTML = content;
+            modal.style.display = 'block';
+        }
+
+        // Fungsi untuk menutup modal
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('contentModal').style.display = 'none';
+        }
+
         // Share functionality
         const shareButtons = document.querySelectorAll('.share-btn');
         shareButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 const title = button.getAttribute('data-title');
-                const path = button.getAttribute('data-url');
-                const url = `${window.location.origin}/${path}`;
+                const type = button.closest('.news-card') ? 'news' : 'events';
+                const id = button.getAttribute('data-url').split('/').pop();
+                const url = `${window.location.origin}${window.location.pathname}?type=${type}&id=${id}`;
 
                 if (navigator.share) {
                     navigator.share({
@@ -933,7 +1021,6 @@
                     .then(() => console.log('Berbagi berhasil'))
                     .catch((error) => console.log('Error saat berbagi:', error));
                 } else {
-                    // Fallback untuk browser yang tidak mendukung Web Share API
                     const tempInput = document.createElement('input');
                     document.body.appendChild(tempInput);
                     tempInput.value = url;
@@ -944,7 +1031,6 @@
                 }
             });
         });
-
 
         // Handle hash change for direct linking
         function handleHashChange() {
@@ -961,6 +1047,9 @@
 
         window.addEventListener('hashchange', handleHashChange);
         window.addEventListener('load', handleHashChange);
+
+        // Panggil fungsi handleUrlParams saat halaman dimuat
+        window.onload = handleUrlParams;
     </script>
 </body>
 </html>
