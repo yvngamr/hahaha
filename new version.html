@@ -589,14 +589,6 @@
     </style>
 </head>
 <body>
-    <!-- Modal -->
-<div id="contentModal" style="display:none;">
-    <div id="modalContent">
-        <span id="closeBtn" style="cursor:pointer;">&times; Close</span>
-        <h2 id="modalTitle"></h2>
-        <div id="modalText"></div>
-    </div>
-</div>
     <header class="navbar">
         <div class="container navbar-container">
             <a href="#" class="logo">FutureOrg</a>
@@ -1016,16 +1008,13 @@ function showModal(title, content) {
 // Panggil fungsi handleUrlParams saat halaman dimuat
 window.onload = handleUrlParams;
 
-document.getElementById('closeBtn').addEventListener('click', closeModal);
-
-// Menutup modal jika area luar modal diklik
 window.addEventListener('click', (event) => {
     const modal = document.getElementById('contentModal');
+    // Menutup modal jika area di luar modal (selain konten modal) yang diklik
     if (event.target === modal) {
         closeModal();
     }
-});
-        
+});        
 
         // Share functionality
         const shareButtons = document.querySelectorAll('.share-btn');
